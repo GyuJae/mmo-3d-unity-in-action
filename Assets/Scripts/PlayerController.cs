@@ -14,27 +14,37 @@ public class PlayerController : MonoBehaviour
     
     // World -> Local
     // InverseTransformDirection
-    
+
+    private float _yAngle = 0.0f;
     void Update()
     {
+        // _yAngle += Time.deltaTime * 100.0f;
+        // transform.eulerAngles = new Vector3(0.0f, _yAngle, 0.0f);
+        
+        // transform.rotation = Quaternion.Euler(new Vector3(0.0f, _yAngle, 0.0f));
+        
         if (Input.GetKey(KeyCode.W))
         {
-           transform.Translate( Vector3.forward * (Time.deltaTime * speed));
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f); 
+            transform.position += Vector3.forward * (speed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(Vector3.back * (Time.deltaTime * speed));
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.2f);
+            transform.position += Vector3.back * (speed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Translate(Vector3.left * (Time.deltaTime * speed));
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.2f);
+            transform.position += Vector3.left * (speed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(Vector3.right * (Time.deltaTime * speed));
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
+            transform.position += Vector3.right * (speed * Time.deltaTime);
         }
     }
 }
