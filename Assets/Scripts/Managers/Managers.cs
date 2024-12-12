@@ -7,7 +7,9 @@ public class Managers : MonoBehaviour
     private static Managers Instance { get { init(); return _instance; } }
 
     private readonly InputManger _input = new InputManger();
+    private readonly ResourceManager _resource = new ResourceManager();
     public static InputManger Input => Instance._input;
+    public static ResourceManager Resource => Instance._resource;
 
     void Start()
     {
