@@ -3,20 +3,20 @@ using UnityEngine;
 public class Managers : MonoBehaviour
 {
     private static Managers _instance;
-    public static Managers GetInstance()
-    {
-        init();
-        return _instance;
-    }
-    
+
+    private static Managers Instance { get { init(); return _instance; } }
+
+    private readonly InputManger _input = new InputManger();
+    public static InputManger Input => Instance._input;
+
     void Start()
     {
-        
+        init();
     }
 
     void Update()
     {
-        
+        _input.OnUpdate();
     }
 
     private static void init()

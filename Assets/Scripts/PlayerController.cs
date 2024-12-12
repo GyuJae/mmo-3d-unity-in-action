@@ -6,23 +6,16 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+        Managers.Input.KeyAction -= OnKeyboard;
+        Managers.Input.KeyAction += OnKeyboard;
     }
 
-    // Local -> World
-    // TransformDirection
-    
-    // World -> Local
-    // InverseTransformDirection
-
-    private float _yAngle = 0.0f;
     void Update()
     {
-        // _yAngle += Time.deltaTime * 100.0f;
-        // transform.eulerAngles = new Vector3(0.0f, _yAngle, 0.0f);
-        
-        // transform.rotation = Quaternion.Euler(new Vector3(0.0f, _yAngle, 0.0f));
-        
+    }
+
+    private void OnKeyboard()
+    {
         if (Input.GetKey(KeyCode.W))
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f); 
