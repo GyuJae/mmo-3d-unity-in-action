@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ColliderTest : MonoBehaviour
 {
+    private Camera _camera;
+
     private void OnCollisionEnter(Collision other)
     {
         Debug.Log($"Collider: {other.gameObject.name}");
@@ -15,24 +17,22 @@ public class ColliderTest : MonoBehaviour
 
     void Start()
     {
-        
+        _camera = Camera.main;
     }
 
     void Update()
     {
-        var look = transform.TransformDirection(Vector3.forward);
-        Debug.DrawRay(transform.position + Vector3.up, look * 10f, Color.red);
-
-        if (Physics.Raycast(transform.position + Vector3.up, look, out RaycastHit hit, 10))
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.DrawRay(transform.position + Vector3.up, hit.point, Color.green);
-            Debug.Log($"Hit Raycast: {hit.collider.gameObject.name}");
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            
+            Debug.DrawRay(_camera.transform.position, ray.direction * 100.0f, Color.red, 1.0f);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f))
+            {
+                Debug.Log($"Hit: {hit.collider.gameObject.name}");
+            }
         }
         
-        var hits = Physics.RaycastAll(transform.position + Vector3.up, look);
-        foreach (var raycastHit in hits)
-        {
-            Debug.Log($"Hit RaycastAll: {raycastHit.collider.gameObject.name}");
-        }
     }
 }
